@@ -34,7 +34,7 @@ iris_long <- iris %>%
 iris_long
 ```
 
-## 3.A) M**ean** length and width of the sepal and petal of each species
+## 3.A) Mean length and width of the sepal and petal of each species
 
 In the first step, I group the data by species and their traits. In the second step, for each group a mean value is counted and showed in a table.
 
@@ -45,7 +45,7 @@ iris_long  %>%
 
 ```
 
-## 3.B) **Largest** and **widest**, **petal** and **sepal**, of **virginica** and **versicolor** species
+## 3.B) Largest and widest, petal and sepal, of virginica and versicolor species
 
 First, I filter the data to have only chosen species, then group them by their species and traits (petal and sepal, length and width) and in the end I search for a maximum value in each group and show the results in the table.
 
@@ -56,7 +56,7 @@ iris_long  %>%
   summarise(Max_size = max(Size))
 ```
 
-## 3.C) The number of observations above the mean for each species, for **sepal** and **petal, width** and **length**
+## 3.C) The number of observations above the mean for each species, for sepal and petal, width and length
 
 After grouping the data by species and traits and next calculating a mean for each group, I check for each value from the column Size if it's higher than the mean from it's group. It gives me data where in the place of each "Size" there's a TRUE or FALSE value. Then I sum up all the true values and display the final table.
 

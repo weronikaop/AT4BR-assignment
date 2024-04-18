@@ -1,0 +1,58 @@
+---
+title: "AT4BR_Exercise_7"
+author: "Weronika Oprzedek"
+format: html
+editor: visual
+---
+
+```{r}
+library("tidyr")
+library("dplyr")
+library("ggplot2")
+```
+
+## Creating data table
+
+Based on the chart I can create a table with the same data as the original ones. ![chart](images/original_chart.jpg)
+
+```{r}
+table <- data.frame(name=c('Starbucks', 'TacoBell', 'Pizza Hut', 'KFC', "Wendy's", "Burger King","Afganistan GDP", "McDonald's"),
+                 sales=c(4.1, 4.3, 8, 8.2, 9.4, 11.3, 21, 41))
+ table 
+```
+
+## Creating chart
+
+```{r}
+plot <- table %>%
+  ##sorting data according to sales values
+  arrange(sales) %>% 
+  ##updating factors levels according to how were they sorted
+   mutate(name=factor(name, levels=name)) %>%
+  
+##making the base of the plot with the created data
+ggplot(data = ., aes(reorder(name, sales), x=name, y=sales))+
+  geom_col(fill = "orange")+ 
+  
+  ##addind labels
+  labs(title="The comparison of fastfood sales numbers", 
+       y="Billions of dollars",
+       x = "") + 
+  
+  ##adding theme
+  theme_classic()+
+  
+  ##centering the title, adding background color
+  theme(plot.title = element_text(hjust = 0.5), panel.background = element_rect(fill = 'azure'))+
+  
+  ##puts scale on the right side
+  scale_y_continuous(position = "right")
+
+plot
+```
+
+Saving the plot
+
+```{r}
+ggsave("images/Plot.svg", plot, width = 18, height = 12, units= "cm")
+```

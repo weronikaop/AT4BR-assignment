@@ -13,8 +13,9 @@ shinyUI(fluidPage(
           tabPanel("Eruptions per year",
                      fluidPage(
                        fluidRow(
+                         h2("Volcano eruptions per year", align = "center"),
                          #slider to choose the range of the plot
-                         sliderInput("range", "Range of years:", min = 1960, max = 2024, value = c(1960, 2024))
+                         sliderInput("range", "Range of years:", min = 1960, max = 2024, value = c(1960, 2024), width = '90%')
                        ),
                        
                        fluidRow(
@@ -23,20 +24,33 @@ shinyUI(fluidPage(
                        )
                      ) 
           ),
-            tabPanel("Data of volcanoes per country",
+          tabPanel("Data of volcanoes per country",
                      fluidPage(
                        fluidRow(
-                         
+                         h2("Volcanoes all around the world", align = "center"),
                          selectInput("choice", "Country:", choices = "")
                        ),
                        
                        fluidRow(
+                         h3("Coordinates marked on a world map", align = "center"),
+                         h5("*it can take few seconds to load*", align = "center"),
                          plotlyOutput("coordinates"),
                          
                        ),
                        
                        fluidRow(
+                         h3("Elevation", align = "center"),
                          plotlyOutput("elevation"),
+                         
+                       )
+                     ) 
+          ),
+          tabPanel("Rock types",
+                     fluidPage(
+                       fluidRow(
+                         h2("Rock types", align = "center"),
+                         #slider to choose the range of the plot
+                         plotlyOutput("rocks"),
                          
                        )
                      ) 

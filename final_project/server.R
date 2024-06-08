@@ -5,6 +5,7 @@ library(dplyr)
 library(ggplot2)
 library(plotly)
 library(readxl)
+library(maps)
 
 
 shinyServer(function(input, output, session) {
@@ -36,10 +37,11 @@ shinyServer(function(input, output, session) {
       filtered_data <- vulcanoes %>% 
         filter(Country == input$choice)
       
-      # draw the plot of elevation
-      ggplot(data = filtered_data, aes(x=Latitude, y = Longitude))+
-        geom_point(colour = "purple")
+      # draw the plot of coordinates on a world map
       
+      ggplot() +
+        geom_polygon(data = map_data("world"), aes(x=long, y=lat, group=group), colour="darkgrey",fill="grey", alpha=1)+
+        geom_point(data = filtered_data, aes(x=Longitude, y = Latitude, label = Volcano_Name), colour = "purple")
       
     })
     
@@ -50,7 +52,7 @@ shinyServer(function(input, output, session) {
         filter(Country == input$choice)
       
       # draw the plot of elevation
-      ggplot(data = filtered_data, aes(x=Country, y = Elevation_in_m))+
+      ggplot(data = filtered_data, aes(x=Country, y = Elevation_in_m, label = Volcano_Name))+
         geom_point( colour = "red", position = position_jitter())
       
       
@@ -59,6 +61,19 @@ shinyServer(function(input, output, session) {
     observe({
       #updating selectInput from ui based on the Country column from loaded table
       updateSelectInput(session, "choice", choices = vulcanoes$Country)
+    })
+    
+    output$rocks <- renderPlotly({
+      
+      #choosing data only for the chosen country
+      filtered_data <- vulcanoes %>% 
+        filter(Country == input$choice)
+      
+      # draw the plot of elevation
+      ggplot(data = filtered_data, aes(x=Country, y = Elevation_in_m, label = Volcano_Name))+
+        geom_point( colour = "red", position = position_jitter())
+      
+      
     })
    
 

@@ -65,14 +65,16 @@ shinyServer(function(input, output, session) {
     
     output$rocks <- renderPlotly({
       
-      #choosing data only for the chosen country
-      filtered_data <- vulcanoes %>% 
-        filter(Country == input$choice)
+      #counts the number of occurences for each type of rock
+      number_of_each_rock <- vulcanoes %>% 
+        group_by(Dominant_Rock_Type) %>% 
+        summarise(Number = n())
       
-      # draw the plot of elevation
-      ggplot(data = filtered_data, aes(x=Country, y = Elevation_in_m, label = Volcano_Name))+
-        geom_point( colour = "red", position = position_jitter())
-      
+      #plots
+      ggplot(data = number_of_each_rock, aes(x=Dominant_Rock_Type, y = Number))+
+        geom_bar(stat="identity", fill = "blue")+
+        #so the names dont overlap
+        theme(axis.text.x = element_text(angle = 20, vjust = 0.5, hjust = 1))
       
     })
    

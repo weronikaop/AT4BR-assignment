@@ -5,7 +5,7 @@ library(tidyr)
 library(dplyr)
 
 x <- vulcanoes %>% 
-  group_by(Dominant_Rock_Type) %>% 
+  group_by(Tectonic_Setting, Dominant_Rock_Type) %>% 
   summarise(count = n())
   
 

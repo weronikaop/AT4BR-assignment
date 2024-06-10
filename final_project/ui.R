@@ -26,16 +26,18 @@ shinyUI(fluidPage(
                        )
                      ) 
           ),
-          tabPanel("Data of volcanoes per country",
+          tabPanel("Volcano data per country",
                      fluidPage(
                        fluidRow(
                          h2("Volcanoes all around the world", align = "center"),
+                         #selection of country for both plots on this panel
                          selectInput("choice", "Choose a country:", choices = "")
                        ),
                        
                        fluidRow(
                          h3("Coordinates marked on a world map", align = "center"),
                          h5("*it can take few seconds to load*", align = "center"),
+                         h5("*there are two plots on this panel*", align = "center"),
                          plotlyOutput("coordinates", height = '600px'),
                          
                        ),
@@ -50,12 +52,23 @@ shinyUI(fluidPage(
           tabPanel("Rock types",
                      fluidPage(
                        fluidRow(
-                         h2("Numbers of vulcanoes build from each type of rock", align = "center"),
-                         plotlyOutput("rocks", height = '600px'),
+                         h2("Numbers of vulcanoes build from each type of rock for each type of tectonic setting", align = "center"),
+                         plotlyOutput("rocks", height = '800px'),
                          
                        ),
                      ) 
-            ),
+          ),
+          tabPanel("Ongoing eruptions",
+                     fluidPage(
+                       fluidRow(
+                         h2("Still ongoing eruptions in 2024", align = "center"),
+                         h4("(as of 19 April 2024)", align = "center"),
+                         h5("only 4 of them started this year while the oldest one of Yasur in Vanuatu started in 1270 ± 110 years", align = "center"),
+                         plotlyOutput("current", height = '600px'),
+                         
+                       ),
+                     ) 
+          ),
           tabPanel("Bibliography", 
                    h3("Bibliography", align = "center"),
                    br(),

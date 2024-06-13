@@ -99,13 +99,13 @@ shinyServer(function(input, output, session) {
       plot <- year2024 %>% 
           #counts the number of occurences for each country
         group_by(Country) %>% 
-        summarise(Number = n()) %>% 
+        summarise(Count = n()) %>% 
           #sorting data according to the ascending numbers of occurences
-        arrange(Number) %>% 
+        arrange(Count) %>% 
         mutate(Country=factor(Country, levels=Country)) %>%
     
           #plots a column plot
-        ggplot(data = ., aes(x=Country, y = Number))+
+        ggplot(data = ., aes(x=Country, y = Count))+
           geom_col(fill = "green")+
             #so the names dont overlap
           theme(axis.text.x = element_text(angle = 30, vjust = 0.5, hjust = 1))

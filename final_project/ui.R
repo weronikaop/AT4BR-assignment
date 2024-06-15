@@ -1,6 +1,4 @@
 
-
-
 library(shiny)
 library(plotly)
 
@@ -22,6 +20,8 @@ shinyUI(fluidPage(
                         in the form of three tables, is saved in the app's folder as: eruptions_2024, eruptions_per_year, volcano_data. 
                         The app contains of: a line plot, a point plot, three bar plots and a plot where locations are marked on a world map. 
                         For some of the plots there are also options for the user to choose range or a subject.", align = "justify"),
+                     br(),
+                     h5("Link to version control on GitHub: https://github.com/weronikaop/AT4BR-assignment/tree/main/final_project"),
                      br(),
                      h5("I would also like to note that because of a big amount of read data, the plots can sometimes 
                      beheave abnormally when switching the panels quickly, by showing on only half width of the page instead of its 100%

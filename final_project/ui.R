@@ -20,8 +20,7 @@ shinyUI(fluidPage(
                          The data I gathered is centred around the topic of volcanos which I personally enjoy. 
                         All the used information comes from Global Volcanism Program [1]. The presented data, 
                         in the form of three tables, is saved in the app's folder as: eruptions_2024, eruptions_per_year, volcano_data. 
-                        The app contains of: a line plot, a point plot, two bar plots (one with the use of grouping in sub categories
-                        and the other with sorting ascending values) and a plot where locations are marked on a world map. 
+                        The app contains of: a line plot, a point plot, three bar plots and a plot where locations are marked on a world map. 
                         For some of the plots there are also options for the user to choose range or a subject.", align = "justify"),
                      br(),
                      h5("I would also like to note that because of a big amount of read data, the plots can sometimes 
@@ -79,11 +78,15 @@ shinyUI(fluidPage(
                        )
                      ) 
           ),
-          tabPanel("Underwater and above water",
+          tabPanel("Under and above sea level",
                    fluidPage(
                      fluidRow(
-                       h2("Numbers of vulcanoes underwater and above water for chosen regions", align = "center"),
-                       #plotlyOutput("water", height = '800px'),
+                       h2("Numbers of vulcanoes under and above sea level for chosen regions", align = "center"),
+                       #selection of regions
+                       checkboxGroupInput("regions", "Choose regions for the plot to draw:", choices = "", width = '100%')
+                     ),
+                     fluidRow(
+                       plotlyOutput("water", height = '800px'),
                        
                      ),
                    ) 

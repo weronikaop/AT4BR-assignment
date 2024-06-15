@@ -75,11 +75,36 @@ shinyServer(function(input, output, session) {
       updateSelectInput(session, "choice", choices = vulcanoes$Country)
     })
     
+    
+    output$water <- renderPlotly({
+#Sea level panel
+      
+      vulcanoes %>% 
+          #filter regions based on input
+        filter(Region %in% input$regions) %>%
+        group_by(Region) %>% 
+          #make column with TRUE, FALSE values based on the Elevation value
+        reframe(Above_sea_level = Elevation_in_m >= 0) %>% 
+      
+      ggplot(data = ., aes(x=Region, fill = Above_sea_level )) +
+        geom_bar(position = "dodge")+
+        ylab("Number")+
+          #so the names dont overlap
+        theme(axis.text.x = element_text(angle = 30, vjust = 0.5, hjust = 1))
+      
+    })
+    
+    observe({
+        #updating checkboxGroupInput from ui based on the Region column from loaded table
+      updateCheckboxGroupInput(session, "regions", choices = unique(vulcanoes$Region), selected = unique(vulcanoes$Region)[1:4], inline = TRUE)
+    })
+    
     output$rocks <- renderPlotly({
 #Rock types panel
       
       x <- vulcanoes %>% 
         group_by(Tectonic_Setting, Dominant_Rock_Type) %>% 
+          #counts the number for each type of Tectonic Setting and Rock Type combination
         summarise(Number = n())
       
       ggplot(data = x, aes(fill =Dominant_Rock_Type, x=Tectonic_Setting, y = Number))+
